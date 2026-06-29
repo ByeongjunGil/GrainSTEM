@@ -1,0 +1,13 @@
+# Core scientific stack
+numpy
+scipy
+matplotlib
+scikit-learn
+h5py
+tifffile
+
+# 4D-STEM I/O and processing
+py4DSTEM
+
+# GPU-accelerated NMF (CPU fallback is automatic if CUDA is unavailable)
+torch

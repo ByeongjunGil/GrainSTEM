@@ -1,0 +1,9 @@
+﻿# Raw / large data — goes to Zenodo, never to git
+data/*.h5
+*.h5
+
+# Python / Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
