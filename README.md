@@ -1,5 +1,7 @@
 # 4D-STEM NBD Quantification of {111}c Planar Defects in MA₁₋ₓGuaₓPbI₃
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21025176.svg)](https://doi.org/10.5281/zenodo.21025176)
+
 Code accompanying the manuscript *"Design Rules for Quantitative Control of Intragrain Planar Defects in Halide Perovskites"* (B. Gil, S. J. Park, J. Y. Kim, M. Kim).
 
 This repository contains the grain-segmentation and {111}c planar-defect classification pipeline applied to low-dose four-dimensional scanning transmission electron microscopy nanobeam-diffraction (4D-STEM NBD) datasets. It quantifies, on a grain-by-grain basis, the fraction of grains bearing {111}c planar defects in Gua20 (MA₀.₈Gua₀.₂PbI₃) and Gua25 (MA₀.₇₅Gua₀.₂₅PbI₃) films across four regions of interest (ROIs) each.
@@ -17,7 +19,7 @@ For each ROI, a near-parallel nanobeam diffraction pattern is recorded at every 
 
 **`notebooks/Part2_defect_classification_and_stats.ipynb`**
 1. Load the Part 1 state.
-2. Mark grains classified as defect-bearing. A grain is counted as defect-bearing only if its representative NBD pattern shows a {111}c diffraction peak together with a streak along the same direction; diffraction patterns unambiguously assignable to δ-phase polytypes (long-range ordering of face-sharing octahedra) are excluded.
+2. Mark grains classified as defect-bearing. Grains are classified as defect-bearing by manual inspection: the user enters the indices of the grains judged to contain planar defects in defect_indices in the Part 2 notebook. The classification criterion is up to the user; in the accompanying paper, a grain was judged defect-bearing when its representative NBD pattern showed a {111}c diffraction peak with a streak along the same direction.
 3. Generate virtual bright-field, dark-field, and HAADF images overlaid with the defect mask and grain boundaries.
 4. Compute the per-ROI defect-grain **count ratio** and **area ratio**, save them to `results/statistics.json`, and aggregate the four ROIs per composition into a Gua20-vs-Gua25 summary (mean ± standard deviation).
 
@@ -28,9 +30,8 @@ For each ROI, a near-parallel nanobeam diffraction pattern is recorded at every 
 ├── notebooks/
 │   ├── Part1_grain_segmentation.ipynb
 │   └── Part2_defect_classification_and_stats.ipynb
-├── results/        # per-ROI grain maps, overlays, and statistics.json (generated)
-├── figures/        # full per-grain diffraction-pattern galleries for ROIs not in the SI
-├── data/           # place raw .h5 4D-STEM datasets here (not tracked; see below)
+├── results/        # per-ROI grain maps, overlays, diffraction-pattern galleries, and statistics
+├── data/           # place raw .h5 4D-STEM datasets here (not tracked; see Data availability)
 ├── requirements.txt
 ├── LICENSE
 └── README.md
@@ -38,9 +39,18 @@ For each ROI, a near-parallel nanobeam diffraction pattern is recorded at every 
 
 ## Data availability
 
-The raw 4D-STEM NBD datasets (`.h5`) are too large for version control and are **not** included here. They are archived separately (see the Data Availability Statement of the paper); download them and place each file under `data/` as `data/<dataset_name>.h5` (e.g. `data/Gua20_Acq1.h5`).
+The raw 4D-STEM NBD datasets (`.h5`, ~6 GB total) are too large for version control and are archived on Zenodo:
 
-The `figures/` folder contains the complete per-grain diffraction-pattern galleries for the ROIs that are not shown in the Supporting Information of the paper (i.e. ROI 2–4 of each composition), which were used to classify each grain as defect-bearing or defect-free.
+> **Zenodo:** https://doi.org/10.5281/zenodo.21025176
+
+Download the eight `.h5` files (`Gua20_ROI1`–`ROI4`, `Gua25_ROI1`–`ROI4`) and place
+them in `data/`. To analyze a given ROI, set `dataset_name` in the notebooks to the
+corresponding file name (e.g. `dataset_name = "Gua25_ROI3"` for `data/Gua25_ROI3.h5`).
+
+The `results/` folder includes the complete per-grain diffraction-pattern galleries
+(`*_all_grains_dps_page_*.png`) for the ROIs that are not reproduced in the Supporting
+Information of the paper, together with the grain maps, virtual-image overlays, and
+per-ROI statistics used to classify each grain as defect-bearing or defect-free.
 
 ## Usage
 
@@ -50,7 +60,7 @@ The `figures/` folder contains the complete per-grain diffraction-pattern galler
    pip install -r requirements.txt
    ```
 
-2. Place the raw dataset for the ROI you want to analyze in `data/`.
+2. Download the raw dataset for the ROI you want to analyze from Zenodo and place it in `data/`.
 
 3. In `Part1_grain_segmentation.ipynb`, set `dataset_name` (and the matching `data/<name>.h5` path) in the configuration cell, then run all cells. Adjust `n_components` to roughly the expected number of grains in the ROI if needed.
 
@@ -63,7 +73,9 @@ The `figures/` folder contains the complete per-grain diffraction-pattern galler
 
 ## Citation
 
-If you use this code, please cite the accompanying paper. Citation details will be added upon publication.
+If you use this code or data, please cite both the accompanying paper (details to be added upon publication) and the Zenodo dataset:
+
+> B. Gil, S. J. Park, J. Y. Kim, M. Kim. *Raw 4D-STEM nanobeam diffraction datasets for {111}c planar-defect quantification in MA₁₋ₓGuaₓPbI₃ perovskites.* Zenodo (2026). https://doi.org/10.5281/zenodo.21025176
 
 ## License
 
