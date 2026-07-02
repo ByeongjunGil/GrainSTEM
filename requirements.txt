@@ -9,5 +9,9 @@ tifffile
 # 4D-STEM I/O and processing
 py4DSTEM
 
+# Strain mapping (Bragg-disk detection, autocorrelation resize, colormaps)
+opencv-python
+cmasher
+
 # GPU-accelerated NMF (CPU fallback is automatic if CUDA is unavailable)
 torch

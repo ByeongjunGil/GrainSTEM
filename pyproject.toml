@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "grainstem"
+version = "1.0.0"
+description = "High-precision 4D-STEM toolkit: NMF grain segmentation, {111}c defect classification, and autocorrelation-based strain mapping with subpixel upsampling."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Byeongjun Gil" }]  # add email / ORCID if desired
+keywords = ["4D-STEM", "nanobeam diffraction", "grain segmentation", "strain mapping", "halide perovskite", "py4DSTEM"]
+dependencies = [
+    "numpy", "scipy", "matplotlib", "scikit-learn",
+    "h5py", "tifffile", "py4DSTEM", "opencv-python", "cmasher",
+]
+
+[project.optional-dependencies]
+gpu = ["torch"]  # GPU-accelerated NMF; CPU fallback is automatic
+
+[project.urls]
+Repository = "https://github.com/ByeongjunGil/GrainSTEM"
